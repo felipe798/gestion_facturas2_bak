@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura PDF</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+            font-size: 24px;
+        }
+
+        .factura {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .factura p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #ff5733;
+        }
+
+        .section-title {
+            font-size: 18px;
+            margin-top: 20px;
+            border-bottom: 1px solid #007bff;
+            padding-bottom: 5px;
+            color: #007bff;
+        }
+
+        .penalizacion {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="factura">
+        <h1>Factura No: {{ factura.numero_factura }}</h1>
+        <p><span class="highlight">Cliente:</span> {{ factura.cliente.nombre }}</p>
+        <p><span class="highlight">Monto Original:</span> {{ factura.monto_total|floatformat:2 }}</p>
+
+        {% if penalizacion > 0 %}
+            <div class="penalizacion">
+                <p><span class="highlight">Penalización:</span> {{ penalizacion|floatformat:2 }}</p>
+                <p><span class="highlight">Monto Total Actualizado:</span> {{ monto_total_actualizado|floatformat:2 }}</p>
+            </div>
+        {% endif %}
+
+        <div class="section-title">Detalles</div>
+        <p><span class="highlight">Fecha de Emisión:</span> {{ factura.fecha_emision }}</p>
+        <p><span class="highlight">Fecha de Vencimiento:</span> {{ factura.fecha_vencimiento }}</p>
+        <p><span class="highlight">Estado:</span> {{ factura.estado }}</p>
+    </div>
+
+    <div class="footer">
+        <p>Gracias por su preferencia.</p>
+    </div>
+</body>
+</html>
